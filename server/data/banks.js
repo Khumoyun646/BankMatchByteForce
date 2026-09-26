@@ -1,0 +1,226 @@
+export const PRODUCT_TYPES = {
+    consumer: "Потребительский кредит",
+    micro: "Микрозайм",
+    auto: "Автокредит",
+    mortgage: "Ипотека",
+    education: "Образовательный кредит",
+};
+
+const M = 1_000_000;
+
+function p([rateFrom, rateTo, min, max, termMax, collateralOver, minIncome, downPaymentMin = 0], extra = {}) {
+    return { rateFrom, rateTo, min, max, termMax, collateralOver, minIncome, downPaymentMin, ...extra };
+}
+
+export const banks = [
+    {
+        id: "kapitalbank",
+        name: "Kapitalbank",
+        color: "#E30613",
+        site: "https://kapitalbank.uz",
+        minAge: 21,
+        maxAge: 65,
+        acceptsNoHistory: true,
+        lenient: false,
+        officialIncomeRequired: true,
+        products: {
+            consumer: p([24, 29, 5 * M, 300 * M, 60, 50 * M, 3 * M]),
+            micro: p([27, 32, 1 * M, 50 * M, 36, Infinity, 2 * M], { officialIncomeRequired: false }),
+            auto: p([22, 26, 30 * M, 700 * M, 60, 0, 5 * M, 25]),
+            mortgage: p([17, 21, 100 * M, 1200 * M, 240, 0, 7 * M, 25]),
+        },
+    },
+    {
+        id: "hamkorbank",
+        name: "Hamkorbank",
+        color: "#00923F",
+        site: "https://hamkorbank.uz",
+        minAge: 20,
+        maxAge: 65,
+        acceptsNoHistory: true,
+        lenient: true,
+        officialIncomeRequired: true,
+        products: {
+            consumer: p([23, 28, 3 * M, 250 * M, 48, 40 * M, 2.5 * M]),
+            micro: p([26, 31, 1 * M, 40 * M, 36, Infinity, 2 * M], { officialIncomeRequired: false }),
+            auto: p([21, 25, 30 * M, 600 * M, 60, 0, 5 * M, 30]),
+            mortgage: p([17, 20, 100 * M, 1000 * M, 240, 0, 7 * M, 25]),
+        },
+    },
+    {
+        id: "ipotekabank",
+        name: "Ipoteka Bank",
+        color: "#00A0E3",
+        site: "https://ipotekabank.uz",
+        minAge: 21,
+        maxAge: 65,
+        acceptsNoHistory: true,
+        lenient: false,
+        officialIncomeRequired: true,
+        products: {
+            consumer: p([24, 28, 5 * M, 200 * M, 60, 40 * M, 3 * M]),
+            mortgage: p([16, 19, 100 * M, 1500 * M, 240, 0, 6 * M, 20]),
+            auto: p([22, 25, 40 * M, 600 * M, 60, 0, 5 * M, 30]),
+        },
+    },
+    {
+        id: "agrobank",
+        name: "Agrobank",
+        color: "#009640",
+        site: "https://agrobank.uz",
+        minAge: 18,
+        maxAge: 65,
+        acceptsNoHistory: true,
+        lenient: true,
+        officialIncomeRequired: false,
+        products: {
+            consumer: p([22, 27, 3 * M, 200 * M, 60, 40 * M, 2 * M]),
+            micro: p([24, 29, 1 * M, 60 * M, 36, Infinity, 1.5 * M]),
+            mortgage: p([17, 21, 80 * M, 900 * M, 240, 0, 6 * M, 25]),
+            education: p([14, 18, 5 * M, 80 * M, 84, Infinity, 0]),
+        },
+    },
+    {
+        id: "sqb",
+        name: "SQB",
+        color: "#1B3C8C",
+        site: "https://sqb.uz",
+        minAge: 21,
+        maxAge: 63,
+        acceptsNoHistory: false,
+        lenient: false,
+        officialIncomeRequired: true,
+        products: {
+            consumer: p([23, 27, 10 * M, 300 * M, 60, 60 * M, 4 * M]),
+            auto: p([21, 24, 50 * M, 800 * M, 60, 0, 6 * M, 25]),
+            mortgage: p([17, 20, 150 * M, 1500 * M, 240, 0, 8 * M, 25]),
+        },
+    },
+    {
+        id: "nbu",
+        name: "Milliy bank (NBU)",
+        color: "#0D4A9E",
+        site: "https://nbu.uz",
+        minAge: 21,
+        maxAge: 65,
+        acceptsNoHistory: false,
+        lenient: false,
+        officialIncomeRequired: true,
+        products: {
+            consumer: p([22, 26, 10 * M, 350 * M, 60, 60 * M, 4 * M]),
+            auto: p([20, 24, 50 * M, 900 * M, 60, 0, 6 * M, 25]),
+            mortgage: p([16, 19, 150 * M, 1800 * M, 240, 0, 8 * M, 20]),
+            education: p([14, 18, 5 * M, 100 * M, 84, Infinity, 0]),
+        },
+    },
+    {
+        id: "anorbank",
+        name: "Anorbank",
+        color: "#8B1538",
+        site: "https://anorbank.uz",
+        minAge: 18,
+        maxAge: 65,
+        acceptsNoHistory: true,
+        lenient: true,
+        officialIncomeRequired: false,
+        products: {
+            consumer: p([25, 30, 2 * M, 150 * M, 36, 30 * M, 2 * M]),
+            micro: p([27, 33, 0.5 * M, 50 * M, 24, Infinity, 1.5 * M]),
+            auto: p([23, 27, 30 * M, 500 * M, 48, 0, 5 * M, 30]),
+        },
+    },
+    {
+        id: "tbc",
+        name: "TBC Bank",
+        color: "#00A3E0",
+        site: "https://tbcbank.uz",
+        minAge: 18,
+        maxAge: 65,
+        acceptsNoHistory: true,
+        lenient: true,
+        officialIncomeRequired: false,
+        products: {
+            consumer: p([26, 32, 1 * M, 120 * M, 36, Infinity, 2 * M]),
+            micro: p([28, 34, 0.5 * M, 40 * M, 24, Infinity, 1.5 * M]),
+        },
+    },
+    {
+        id: "asakabank",
+        name: "Asakabank",
+        color: "#004B87",
+        site: "https://asakabank.uz",
+        minAge: 21,
+        maxAge: 65,
+        acceptsNoHistory: false,
+        lenient: false,
+        officialIncomeRequired: true,
+        products: {
+            consumer: p([23, 27, 10 * M, 250 * M, 60, 50 * M, 4 * M]),
+            auto: p([19, 23, 50 * M, 900 * M, 60, 0, 6 * M, 20]),
+            mortgage: p([17, 20, 150 * M, 1200 * M, 240, 0, 8 * M, 25]),
+        },
+    },
+    {
+        id: "xalqbank",
+        name: "Xalq banki",
+        color: "#E4032E",
+        site: "https://xb.uz",
+        minAge: 18,
+        maxAge: 70,
+        acceptsNoHistory: true,
+        lenient: true,
+        officialIncomeRequired: false,
+        products: {
+            consumer: p([22, 26, 3 * M, 150 * M, 48, 30 * M, 1.5 * M]),
+            micro: p([24, 28, 1 * M, 40 * M, 36, Infinity, 1 * M]),
+            education: p([14, 17, 5 * M, 80 * M, 84, Infinity, 0]),
+        },
+    },
+    {
+        id: "davrbank",
+        name: "Davr Bank",
+        color: "#F39200",
+        site: "https://davrbank.uz",
+        minAge: 20,
+        maxAge: 65,
+        acceptsNoHistory: true,
+        lenient: true,
+        officialIncomeRequired: true,
+        products: {
+            consumer: p([25, 30, 3 * M, 150 * M, 48, 40 * M, 2.5 * M]),
+            auto: p([23, 27, 30 * M, 500 * M, 48, 0, 5 * M, 30]),
+        },
+    },
+    {
+        id: "aloqabank",
+        name: "Aloqabank",
+        color: "#0072BC",
+        site: "https://aloqabank.uz",
+        minAge: 21,
+        maxAge: 65,
+        acceptsNoHistory: true,
+        lenient: false,
+        officialIncomeRequired: true,
+        products: {
+            consumer: p([24, 28, 5 * M, 200 * M, 60, 50 * M, 3 * M]),
+            mortgage: p([17, 21, 100 * M, 1000 * M, 240, 0, 7 * M, 25]),
+            education: p([14, 18, 5 * M, 80 * M, 84, Infinity, 0]),
+        },
+    },
+];
+
+export function publicBanks() {
+    return banks.map((bank) => ({
+        ...bank,
+        products: Object.fromEntries(
+            Object.entries(bank.products).map(([type, prod]) => [
+                type,
+                {
+                    ...prod,
+                    label: PRODUCT_TYPES[type],
+                    collateralOver: Number.isFinite(prod.collateralOver) ? prod.collateralOver : null,
+                },
+            ])
+        ),
+    }));
+}
